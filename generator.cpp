@@ -5,7 +5,7 @@
 #include <cstdlib>
 using namespace std;
 
-extern int Board[9][9];
+int Board[9][9];
 int Try_List[9];
 
 int Random_Init(int Num[]){    //随机生成1-9全排列
@@ -37,14 +37,14 @@ bool Judge(int x,int y,int num){
 	return 1;
 }
 
-int Solve_Sudoku(int x,int y){
+int Fill_Sudoku(int x,int y){
 	int ori = Board[x][y];    //记录初值
 	int next_x = x + (y + 1) / 9, next_y = (y + 1) % 9;    //下一方格坐标
 
 	if (x >= 9)    //全部完成
 		return 1;
 	if (Board[x][y]){    //当前格已填充
-		if (Solve_Sudoku(next_x, next_y))
+		if (Fill_Sudoku(next_x, next_y))
 			return 1;
 	}
 	else{    //当前为空格
@@ -52,7 +52,7 @@ int Solve_Sudoku(int x,int y){
 			int Try_Num = Try_List[i];    //当前尝试数字
 			if (Judge(x, y, Try_Num)){    //判断是否合法
 				Board[x][y] = Try_Num;
-				if (Solve_Sudoku(next_x, next_y))
+				if (Fill_Sudoku(next_x, next_y))
 					return 1;
 			}
 		}
@@ -76,12 +76,37 @@ int Creat_Sudoku(int Sodoku_Num){
 				break;
 			}
 		Random_Init(Try_List);    //随机初始化数字尝试顺序
-		Solve_Sudoku(1,0);    //求解残局
+		Fill_Sudoku(1,0);    //求解残局
 		for (int i = 0; i < 9; i++)   //打印
 			for (int j = 0; j < 9; j++)
 				printf("%d%c", Board[i][j], j == 8 ? '\n' : ' ');
 		putchar('\n');
 	}
+	fclose(stdout);
+
+	return 0;
+}
+
+int Solve_Sudoku(char file[]){
+
+	freopen(file, "r", stdin);
+	freopen("sudoku.txt", "w", stdout);
+	int temp, i = 0, j = 0;
+	Random_Init(Try_List);
+	while (~scanf("%d", &temp)){
+		Board[i][j] = temp;
+		i += (j + 1) / 9;
+		j = (j + 1) % 9;
+		if (i == 9){    //求解数独
+			Fill_Sudoku(0, 0);
+			i = j = 0;
+			for (int i = 0; i < 9; i++)   //打印
+				for (int j = 0; j < 9; j++)
+					printf("%d%c", Board[i][j], j == 8 ? '\n' : ' ');
+			putchar('\n');
+		}
+	}
+	fclose(stdin);
 	fclose(stdout);
 
 	return 0;
