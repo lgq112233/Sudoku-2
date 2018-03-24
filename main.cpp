@@ -1,9 +1,8 @@
-#include <cstdio>
-#include <cstring>
-#include <ctime>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 #include <iostream>
-#include <cstdlib>
-using namespace std;
+#include <stdlib.h>
 
 extern int Solve_Sudoku(char file[]);
 extern int Creat_Sudoku(int Sodoku_Num);

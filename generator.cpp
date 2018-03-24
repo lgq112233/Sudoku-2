@@ -1,18 +1,25 @@
-#include <cstdio>
-#include <cstring>
-#include <ctime>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 #include <iostream>
-#include <cstdlib>
-using namespace std;
+#include <stdlib.h>
 
 int Board[9][9];
 int Try_List[9];
+
+void swap(int &a, int &b){
+	
+	int temp = a;
+	a = b;
+	b = temp;
+
+}
 
 int Random_Init(int Num[]){    //随机生成1-9全排列
 
 	for (int i = 0; i < 9; i++)    //顺序填入1~9
 		Num[i] = i + 1;
-	for (int i = 0; i < 9; i++){
+	for (int i = 0; i < 20; i++){
 		int j = rand() % 9;    //随机生成0~8数字
 		swap(Num[j], Num[8]);    //与最后一个数字交换
 	}
@@ -92,6 +99,7 @@ int Solve_Sudoku(char file[]){
 	freopen(file, "r", stdin);
 	freopen("sudoku.txt", "w", stdout);
 	int temp, i = 0, j = 0;
+	srand((unsigned)time(NULL));    //时间种子
 	Random_Init(Try_List);
 	while (~scanf("%d", &temp)){
 		Board[i][j] = temp;
