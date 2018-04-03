@@ -7,6 +7,20 @@
 int Board[25][9][9];
 int Try_List[9];
 
+int read(char str[]){    //读取参数
+
+	int Num = 0, len = strlen(str);
+	for (int i = 0; i < len; i++){
+		if (str[i]>'9' || str[i] < '0')    //非数字
+			return 0;
+		Num *= 10;
+		Num += str[i] - '0';
+		if (Num > 1000000 || Num == 0)     //数字不在范围内
+			return 0;
+	}
+	return Num;
+}
+
 void swap(int &a, int &b){    //交换两个数
 	
 	int temp = a;
@@ -27,7 +41,7 @@ int Random_Init(int Num[]){    //随机生成1-9全排列
 	return 0;
 }
 
-bool Judge(int s,int x,int y,int num){    //判断填充合法
+int Judge(int s,int x,int y,int num){    //判断填充合法
 
 	for (int i = 0; i < 9; i++){    //当前行、列合法判断
 		if (Board[s][x][i] == num)

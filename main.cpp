@@ -3,23 +3,7 @@
 #include <time.h>
 #include <iostream>
 #include <stdlib.h>
-
-extern int Solve_Sudoku(char File[]);
-extern int Creat_Sudoku(int Sodoku_Num);
-
-int read(char str[]){    //读取数字
-
-	int Num = 0,len=strlen(str);
-	for (int i = 0; i < len; i++){
-		if (str[i]>'9' || str[i] < '0')    //非数字
-			return 0;
-		Num *= 10;
-		Num += str[i] - '0';
-		if (Num > 1000000 || Num == 0)     //数字不在范围内
-			return 0;
-	}
-	return Num;
-}
+#include "sudoku.h"
 
 int main(int argc,char *argv[]){
 
