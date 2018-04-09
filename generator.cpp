@@ -128,9 +128,16 @@ int Creat_Sudoku(int Sodoku_Num){    //生成终局
 			Swap_Col(sand, 3, 5), Swap_Row(sand, 3, 5);
 			Swap_Col(sand, 6, 8), Swap_Row(sand, 6, 8);
 			for (int i = 0; i < 9; i++)   //打印
-				for (int j = 0; j < 9; j++)
-					printf("%d%c", Board[sand][i][j], j == 8 ? '\n' : ' ');
-			putchar('\n');
+				for (int j = 0; j < 9; j++){
+					if (j == 8)
+						putchar('\n');
+					else{
+						putchar(Board[sand][i][j] + '0');
+						putchar(' ');
+					}
+				}
+			if (Sodoku_Num)
+				putchar('\n');
 		}
 	}
 	fclose(stdout);
@@ -152,8 +159,14 @@ int Solve_Sudoku(char File[]){    //求解残局
 			Fill_Sudoku(0, 0, 0);
 			i = j = 0;
 			for (int i = 0; i < 9; i++)   //打印
-				for (int j = 0; j < 9; j++)
-					printf("%d%c", Board[0][i][j], j == 8 ? '\n' : ' ');
+				for (int j = 0; j < 9; j++){
+					if (j == 8)
+						putchar('\n');
+					else{
+						putchar(Board[0][i][j] + '0');
+						putchar(' ');
+					}
+				}
 			putchar('\n');
 		}
 	}
