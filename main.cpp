@@ -3,7 +3,7 @@
 #include <time.h>
 #include <iostream>
 #include <stdlib.h>
-#include "sudoku.h"
+#include "generator.h"
 
 int main(int argc,char *argv[]){
 
